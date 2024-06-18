@@ -5,10 +5,11 @@ sealed class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
     [SerializeField] private float _rotationSpeed = 5f;
+    [SerializeField] private float _arrivalThreshold = 0.1f;
 
     private Transform _target;
 
-    public event Action OnReachedDestination;
+    public event Action ReachedDestination;
 
     private void Update()
     {
@@ -29,9 +30,9 @@ sealed class Movement : MonoBehaviour
         Vector3 direction = (_target.position - transform.position).normalized;
         transform.position += direction * _speed * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, _target.position) < 0.1f)
+        if (Vector3.Distance(transform.position, _target.position) < _arrivalThreshold)
         {
-            OnReachedDestination?.Invoke();
+            ReachedDestination?.Invoke();
         }
     }
 

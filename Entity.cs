@@ -13,12 +13,12 @@ sealed class Entity : MonoBehaviour
 
     private void Start()
     {
-        _movement.OnReachedDestination += HandleDeath;
+        _movement.ReachedDestination += OnReachedDestination;
     }
 
     private void OnDestroy()
     {
-        _movement.OnReachedDestination -= HandleDeath;
+        _movement.ReachedDestination -= OnReachedDestination;
     }
 
     public void Initialize(Transform target)
@@ -26,7 +26,7 @@ sealed class Entity : MonoBehaviour
         _movement.SetTarget(target);
     }
 
-    private void HandleDeath()
+    private void OnReachedDestination()
     {
         Destroy(gameObject);
     }
